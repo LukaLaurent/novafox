@@ -172,7 +172,17 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
       kind: { en: 'Site plans', fr: 'Plans de site' },
       desc: { en: 'Draw your site plan, then place Wi-Fi antennas, printers or any equipment on top, each on its own layer. Plans stay on your computer and never go to a server.', fr: 'Dessinez le plan de votre site, puis placez antennes Wi-Fi, imprimantes ou tout autre équipement, chacun sur son calque. Les plans restent sur votre ordinateur et ne partent jamais sur un serveur.' },
       tags: [{ en: 'App', fr: 'Appli' }, { en: 'Free', fr: 'Gratuit' }, { en: 'Private', fr: 'Privé', teal: 1 }, { en: 'Browser', fr: 'Navigateur', teal: 1 }, { en: 'FR / EN', fr: 'FR / EN', teal: 1 }],
-      open: { en: 'Open', fr: 'Ouvrir' } }
+      open: { en: 'Open', fr: 'Ouvrir' } },
+    { id: 'mousefence', name: 'MouseFence', icon: 'assets/mousefence.svg', url: 'https://github.com/LukaLaurent/MouseFence', dl: 'https://github.com/LukaLaurent/MouseFence/archive/refs/heads/main.zip', src: 'https://github.com/LukaLaurent/MouseFence', shots: ['assets/mousefence-1.svg'],
+      kind: { en: 'Windows app', fr: 'Appli Windows' },
+      desc: { en: 'Keeps your mouse on one screen. Press a shortcut and the mouse stays on the screen it is on, press it again to free it. Made for PCs with two or more screens, lives in the system tray.', fr: 'Garde la souris sur un seul écran. Un raccourci et la souris reste sur l\'écran où elle est, un autre appui la libère. Pensé pour les PC à deux écrans ou plus, vit dans la zone de notification.' },
+      tags: [{ en: 'App', fr: 'Appli' }, { en: 'Free', fr: 'Gratuit' }, { en: 'Windows 11', fr: 'Windows 11', teal: 1 }, { en: 'Tray', fr: 'Notification', teal: 1 }, { en: 'EN / FR', fr: 'EN / FR', teal: 1 }],
+      open: { en: 'Download', fr: 'Télécharger' } },
+    { id: 'screencycle', name: 'ScreenCycle', icon: 'assets/screencycle.svg', url: 'https://github.com/LukaLaurent/ScreenCycle', dl: 'https://github.com/LukaLaurent/ScreenCycle/archive/refs/heads/main.zip', src: 'https://github.com/LukaLaurent/ScreenCycle', shots: ['assets/screencycle-1.svg', 'assets/screencycle-2.svg'],
+      kind: { en: 'Windows app', fr: 'Appli Windows' },
+      desc: { en: 'Turns a Windows PC into a display screen. Websites, documents, apps and windows take turns on screen, each for the time you choose. Great for waiting rooms and info screens.', fr: 'Transforme un PC Windows en écran d\'affichage. Sites, documents, applis et fenêtres passent à tour de rôle, chacun le temps choisi. Idéal pour les salles d\'attente et les écrans d\'information.' },
+      tags: [{ en: 'App', fr: 'Appli' }, { en: 'Free', fr: 'Gratuit' }, { en: 'Windows 11', fr: 'Windows 11', teal: 1 }, { en: 'Tray', fr: 'Notification', teal: 1 }, { en: 'EN', fr: 'EN', teal: 1 }],
+      open: { en: 'Download', fr: 'Télécharger' } }
   ];
   var L = 'en';
   function esc(x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -181,7 +191,7 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
       (p.shots.length > 1 ? '<span class="dots">' + p.shots.map(function (u, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</span>' : '') + '</div>' +
       '<div class="body"><div class="head"><img src="' + p.icon + '" alt=""><div><h3>' + esc(p.name) + '</h3><small>' + esc(p.kind[L]) + '</small></div></div><p>' + esc(p.desc[L]) + '</p>' +
       '<div class="tags">' + p.tags.map(function (t) { return '<span class="tag' + (t.teal ? ' teal' : '') + '">' + esc(t[L]) + '</span>'; }).join('') + '</div>' +
-      '<div class="links"><a class="btn btn-primary" href="' + p.url + '">' + esc(p.open[L]) + '</a><a class="btn btn-ghost" href="' + p.src + '">GitHub</a></div></div></div>';
+      '<div class="links"><a class="btn btn-primary" href="' + (p.dl || p.url) + '">' + esc(p.open[L]) + '</a><a class="btn btn-ghost" href="' + p.src + '">GitHub</a></div></div></div>';
   }
   var timer = 0;
   function startShots(root) {
