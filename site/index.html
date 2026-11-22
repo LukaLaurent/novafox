@@ -174,7 +174,7 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
   var L = 'en';
   function esc(x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function popHtml(p) {
-    return '<div class="pop"><div class="shots">' + p.shots.map(function (u, i) { return '<img src="' + u + '" alt="" loading="lazy"' + (i ? '' : ' class="on"') + '>'; }).join('') +
+    return '<div class="pop"><div class="shots">' + p.shots.map(function (u, i) { return '<img src="' + u + '" alt=""' + (i ? '' : ' class="on"') + '>'; }).join('') +
       (p.shots.length > 1 ? '<span class="dots">' + p.shots.map(function (u, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</span>' : '') + '</div>' +
       '<div class="body"><div class="head"><img src="' + p.icon + '" alt=""><div><h3>' + esc(p.name) + '</h3><small>' + esc(p.kind[L]) + '</small></div></div><p>' + esc(p.desc[L]) + '</p>' +
       '<div class="tags">' + p.tags.map(function (t) { return '<span class="tag' + (t.teal ? ' teal' : '') + '">' + esc(t[L]) + '</span>'; }).join('') + '</div>' +
