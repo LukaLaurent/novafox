@@ -68,11 +68,14 @@ section h2 { font: 600 24px/1.3 var(--font-head); margin-bottom: 20px; }
 .tile.soon > a { border-style: dashed; color: var(--text-faint); cursor: default; }
 .tile.soon > a .plus { width: 64px; height: 64px; border-radius: 16px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font: 600 30px/1 var(--font-head); }
 .tile.soon:hover > a { transform: none; box-shadow: none; border-color: var(--border); }
-.pop { position: absolute; z-index: 20; top: calc(100% + 10px); left: 0; width: 360px; max-width: calc(100vw - 32px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity 180ms var(--ease), transform 180ms var(--ease), visibility 180ms; }
+.pop { position: absolute; z-index: 20; top: calc(100% + 10px); left: 0; width: 360px; max-width: calc(100vw - 32px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); overflow: hidden; display: none; }
 .tile.right .pop { left: auto; right: 0; }
-.tile.up .pop { top: auto; bottom: calc(100% + 10px); transform: translateY(6px); }
+.tile.up .pop { top: auto; bottom: calc(100% + 10px); }
 .tile.up[data-id]::after { top: auto; bottom: 100%; }
-.tile:hover .pop, .tile:focus-within .pop { opacity: 1; visibility: visible; transform: none; }
+.tile:hover .pop, .tile:focus-within .pop { display: block; animation: popdown 180ms var(--ease); }
+.tile.up:hover .pop, .tile.up:focus-within .pop { animation-name: popup; }
+@keyframes popdown { from { opacity: 0; transform: translateY(-6px); } }
+@keyframes popup { from { opacity: 0; transform: translateY(6px); } }
 .tile[data-id]::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 12px; }
 .shots { position: relative; aspect-ratio: 16 / 8; background: var(--surface-2); overflow: hidden; }
 .shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 600ms ease; }
@@ -93,7 +96,7 @@ section h2 { font: 600 24px/1.3 var(--font-head); margin-bottom: 20px; }
 .pop .links a { height: 38px; padding: 0 16px; font-size: 14px; border-radius: var(--r-sm); }
 .sheet { position: fixed; inset: 0; z-index: 50; background: rgba(22, 25, 29, 0.55); display: flex; align-items: flex-end; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 200ms, visibility 200ms; }
 .sheet.on { opacity: 1; visibility: visible; }
-.sheet .pop { position: relative; top: auto; left: auto; right: auto; width: 100%; max-width: 480px; opacity: 1; visibility: visible; transform: translateY(24px); border-radius: var(--r-lg) var(--r-lg) 0 0; transition: transform 250ms var(--ease); padding-bottom: env(safe-area-inset-bottom); }
+.sheet .pop { display: block; position: relative; top: auto; left: auto; right: auto; width: 100%; max-width: 480px; transform: translateY(24px); border-radius: var(--r-lg) var(--r-lg) 0 0; transition: transform 250ms var(--ease); padding-bottom: env(safe-area-inset-bottom); }
 .sheet.on .pop { transform: none; }
 @media (hover: none) { .tile .pop { display: none; } }
 main { flex: 1; padding-bottom: 64px; }
@@ -163,7 +166,7 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
     { id: 'buzzworks', name: 'Buzzworks', icon: 'assets/buzzworks.svg', url: 'https://buzzworks.novafox.fr', src: 'https://github.com/LukaLaurent/buzzworks', shots: ['assets/buzzworks-1.jpg', 'assets/buzzworks-2.jpg', 'assets/buzzworks-3.jpg', 'assets/buzzworks-4.jpg'],
       kind: { en: 'Idle game', fr: 'Jeu idle' },
       desc: { en: 'A cozy honey tycoon. Build your hive, catch lucky bees, hatch a bee collection, climb weekly leagues and open new worlds.', fr: 'Un jeu de gestion de miel tout doux. Agrandissez votre ruche, attrapez des abeilles dorées, collectionnez des abeilles, grimpez dans les ligues et ouvrez de nouveaux mondes.' },
-      tags: [{ en: 'Game', fr: 'Jeu' }, { en: 'Free to play', fr: 'Gratuit' }, { en: 'Leagues', fr: 'Ligues', teal: 1 }, { en: 'Browser', fr: 'Navigateur', teal: 1 }, { en: 'EN / FR', fr: 'EN / FR', teal: 1 }],
+      tags: [{ en: 'Game', fr: 'Jeu' }, { en: 'Free to play', fr: 'Gratuit' }, { en: 'Browser', fr: 'Navigateur', teal: 1 }, { en: 'EN / FR', fr: 'EN / FR', teal: 1 }],
       open: { en: 'Play', fr: 'Jouer' } },
     { id: 'planizo', name: 'Planizo', icon: 'assets/planizo.svg', url: 'https://lukalaurent.github.io/Planizo/', src: 'https://github.com/LukaLaurent/Planizo', shots: ['assets/planizo-1.png'],
       kind: { en: 'Site plans', fr: 'Plans de site' },
