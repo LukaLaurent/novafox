@@ -58,20 +58,42 @@ header .wrap { display: flex; align-items: center; justify-content: space-betwee
 @keyframes bob { from { transform: translateY(-8px) rotate(-3deg); } to { transform: translateY(8px) rotate(3deg); } }
 @keyframes glow { from { transform: scale(0.9); } to { transform: scale(1.08); } }
 section h2 { font: 600 24px/1.3 var(--font-head); margin-bottom: 20px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; display: flex; flex-direction: column; gap: 14px; box-shadow: var(--shadow-md); text-decoration: none; transition: transform 200ms var(--ease), box-shadow 200ms var(--ease); }
-a.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.card .top { display: flex; align-items: center; gap: 14px; }
-.card .top img { width: 56px; height: 56px; border-radius: 14px; }
-.card h3 { font: 600 20px/1.2 var(--font-head); }
-.card small { color: var(--text-faint); font-size: 13px; }
-.card p { color: var(--text-muted); font-size: 15px; flex: 1; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 16px; }
+.tile { position: relative; }
+.tile > a { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 10px 14px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--border); text-decoration: none; text-align: center; height: 100%; transition: transform 200ms var(--ease), box-shadow 200ms var(--ease), border-color 200ms var(--ease); }
+.tile > a img { width: 64px; height: 64px; border-radius: 16px; }
+.tile > a b { font: 600 15px/1.25 var(--font-head); }
+.tile > a small { font-size: 12px; color: var(--text-faint); line-height: 1.35; }
+.tile:hover > a, .tile:focus-within > a { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--orange); }
+.tile.soon > a { border-style: dashed; color: var(--text-faint); cursor: default; }
+.tile.soon > a .plus { width: 64px; height: 64px; border-radius: 16px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font: 600 30px/1 var(--font-head); }
+.tile.soon:hover > a { transform: none; box-shadow: none; border-color: var(--border); }
+.pop { position: absolute; z-index: 20; top: calc(100% + 10px); left: 0; width: 360px; max-width: calc(100vw - 32px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity 180ms var(--ease), transform 180ms var(--ease), visibility 180ms; }
+.tile.right .pop { left: auto; right: 0; }
+.tile:hover .pop, .tile:focus-within .pop { opacity: 1; visibility: visible; transform: none; }
+.tile[data-id]::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 12px; }
+.shots { position: relative; aspect-ratio: 16 / 8; background: var(--surface-2); overflow: hidden; }
+.shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 600ms ease; }
+.shots img.on { opacity: 1; }
+.shots .dots { position: absolute; bottom: 8px; left: 0; right: 0; display: flex; justify-content: center; gap: 5px; }
+.shots .dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); box-shadow: 0 0 2px rgba(0,0,0,0.4); }
+.shots .dots i.on { background: #fff; }
+.pop .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; }
+.pop .head { display: flex; align-items: center; gap: 12px; }
+.pop .head img { width: 40px; height: 40px; border-radius: 10px; }
+.pop h3 { font: 600 18px/1.2 var(--font-head); }
+.pop .head small { color: var(--text-faint); font-size: 12px; }
+.pop p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
 .tags { display: flex; gap: 6px; flex-wrap: wrap; }
 .tag { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: var(--r-full); background: var(--orange-soft); color: var(--orange-hover); }
 .tag.teal { background: var(--teal-soft); color: var(--teal); }
-.card.soon { box-shadow: none; border-style: dashed; justify-content: center; align-items: center; text-align: center; min-height: 200px; color: var(--text-faint); }
-.card.soon .dot { width: 56px; height: 56px; border-radius: 14px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font: 600 28px/1 var(--font-head); color: var(--text-faint); }
-.play { color: var(--orange-hover); font-weight: 600; font-size: 15px; }
+.pop .links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.pop .links a { height: 38px; padding: 0 16px; font-size: 14px; border-radius: var(--r-sm); }
+.sheet { position: fixed; inset: 0; z-index: 50; background: rgba(22, 25, 29, 0.55); display: flex; align-items: flex-end; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 200ms, visibility 200ms; }
+.sheet.on { opacity: 1; visibility: visible; }
+.sheet .pop { position: relative; top: auto; left: auto; right: auto; width: 100%; max-width: 480px; opacity: 1; visibility: visible; transform: translateY(24px); border-radius: var(--r-lg) var(--r-lg) 0 0; transition: transform 250ms var(--ease); padding-bottom: env(safe-area-inset-bottom); }
+.sheet.on .pop { transform: none; }
+@media (hover: none) { .tile .pop { display: none; } }
 main { flex: 1; padding-bottom: 64px; }
 footer { border-top: 1px solid var(--border); padding: 24px 0; color: var(--text-faint); font-size: 13px; }
 footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -85,7 +107,7 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
   .mascot { width: 200px; height: 200px; order: -1; }
   .mascot img { width: 150px; }
   .wrap { padding: 0 16px; }
-  .grid { grid-template-columns: 1fr; }
+  .tiles { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
 </style>
@@ -112,18 +134,11 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
     </section>
     <section id="projects">
       <h2 data-t="projects">Projects</h2>
-      <div class="grid">
-        <a class="card" href="https://buzzworks.novafox.fr">
-          <div class="top"><img src="assets/buzzworks.svg" alt=""><div><h3>Buzzworks</h3><small data-t="bz_kind">Idle game</small></div></div>
-          <p data-t="bz_d">A cozy honey tycoon. Build your hive, catch lucky bees, hatch a bee collection, climb weekly leagues and open new worlds.</p>
-          <div class="tags"><span class="tag" data-t="tag_free">Free to play</span><span class="tag teal" data-t="tag_web">Browser</span><span class="tag teal">EN / FR</span></div>
-          <span class="play" data-t="play">Play now</span>
-        </a>
-        <div class="card soon"><div class="dot">+</div><p data-t="soon">More games and apps are on the way.</p></div>
-      </div>
+      <div class="tiles" id="tiles"></div>
     </section>
   </div>
 </main>
+<div class="sheet" id="sheet"></div>
 <footer>
   <div class="wrap">
     <span>NovaFox · novafox.fr</span>
@@ -141,6 +156,65 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
       tag_free: 'Gratuit', tag_web: 'Navigateur', play: 'Jouer', soon: 'D\'autres jeux et applis arrivent bientôt.'
     }
   };
+  var SOON = { en: 'More games and apps are on the way.', fr: 'D\'autres jeux et applis arrivent bientôt.' };
+  var P = [
+    { id: 'buzzworks', name: 'Buzzworks', icon: 'assets/buzzworks.svg', url: 'https://buzzworks.novafox.fr', src: 'https://github.com/LukaLaurent/buzzworks', shots: ['assets/buzzworks-1.jpg', 'assets/buzzworks-2.jpg', 'assets/buzzworks-3.jpg', 'assets/buzzworks-4.jpg'],
+      kind: { en: 'Idle game', fr: 'Jeu idle' },
+      desc: { en: 'A cozy honey tycoon. Build your hive, catch lucky bees, hatch a bee collection, climb weekly leagues and open new worlds.', fr: 'Un jeu de gestion de miel tout doux. Agrandissez votre ruche, attrapez des abeilles dorées, collectionnez des abeilles, grimpez dans les ligues et ouvrez de nouveaux mondes.' },
+      tags: [{ en: 'Game', fr: 'Jeu' }, { en: 'Free to play', fr: 'Gratuit' }, { en: 'Leagues', fr: 'Ligues', teal: 1 }, { en: 'Browser', fr: 'Navigateur', teal: 1 }, { en: 'EN / FR', fr: 'EN / FR', teal: 1 }],
+      open: { en: 'Play', fr: 'Jouer' } },
+    { id: 'planizo', name: 'Planizo', icon: 'assets/planizo.svg', url: 'https://lukalaurent.github.io/Planizo/', src: 'https://github.com/LukaLaurent/Planizo', shots: ['assets/planizo-1.png'],
+      kind: { en: 'Site plans', fr: 'Plans de site' },
+      desc: { en: 'Draw your site plan, then place Wi-Fi antennas, printers or any equipment on top, each on its own layer. Plans stay on your computer and never go to a server.', fr: 'Dessinez le plan de votre site, puis placez antennes Wi-Fi, imprimantes ou tout autre équipement, chacun sur son calque. Les plans restent sur votre ordinateur et ne partent jamais sur un serveur.' },
+      tags: [{ en: 'App', fr: 'Appli' }, { en: 'Free', fr: 'Gratuit' }, { en: 'Private', fr: 'Privé', teal: 1 }, { en: 'Browser', fr: 'Navigateur', teal: 1 }, { en: 'FR / EN', fr: 'FR / EN', teal: 1 }],
+      open: { en: 'Open', fr: 'Ouvrir' } }
+  ];
+  var L = 'en';
+  function esc(x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function popHtml(p) {
+    return '<div class="pop"><div class="shots">' + p.shots.map(function (u, i) { return '<img src="' + u + '" alt="" loading="lazy"' + (i ? '' : ' class="on"') + '>'; }).join('') +
+      (p.shots.length > 1 ? '<span class="dots">' + p.shots.map(function (u, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</span>' : '') + '</div>' +
+      '<div class="body"><div class="head"><img src="' + p.icon + '" alt=""><div><h3>' + esc(p.name) + '</h3><small>' + esc(p.kind[L]) + '</small></div></div><p>' + esc(p.desc[L]) + '</p>' +
+      '<div class="tags">' + p.tags.map(function (t) { return '<span class="tag' + (t.teal ? ' teal' : '') + '">' + esc(t[L]) + '</span>'; }).join('') + '</div>' +
+      '<div class="links"><a class="btn btn-primary" href="' + p.url + '">' + esc(p.open[L]) + '</a><a class="btn btn-ghost" href="' + p.src + '">GitHub</a></div></div></div>';
+  }
+  var timer = 0;
+  function startShots(root) {
+    clearInterval(timer);
+    var imgs = root.querySelectorAll('.shots img'), dots = root.querySelectorAll('.shots .dots i');
+    if (imgs.length < 2) return;
+    var k = 0;
+    timer = setInterval(function () {
+      imgs[k].classList.remove('on'); if (dots[k]) dots[k].classList.remove('on');
+      k = (k + 1) % imgs.length;
+      imgs[k].classList.add('on'); if (dots[k]) dots[k].classList.add('on');
+    }, 1800);
+  }
+  function openSheet(id) {
+    var p = P.filter(function (x) { return x.id === id; })[0];
+    var sh = document.getElementById('sheet');
+    sh.innerHTML = popHtml(p);
+    void sh.offsetWidth;
+    sh.classList.add('on');
+    startShots(sh);
+  }
+  function render() {
+    var box = document.getElementById('tiles');
+    box.innerHTML = P.map(function (p) { return '<div class="tile" data-id="' + p.id + '"><a href="' + p.url + '"><img src="' + p.icon + '" alt=""><b>' + esc(p.name) + '</b><small>' + esc(p.kind[L]) + '</small></a>' + popHtml(p) + '</div>'; }).join('') +
+      '<div class="tile soon"><a><span class="plus">+</span><small>' + esc(SOON[L]) + '</small></a></div>';
+    box.querySelectorAll('.tile[data-id]').forEach(function (el) {
+      el.addEventListener('mouseenter', function () {
+        el.classList.toggle('right', el.getBoundingClientRect().left + 360 > window.innerWidth - 16);
+        startShots(el);
+      });
+      el.addEventListener('mouseleave', function () { clearInterval(timer); });
+      el.addEventListener('focusin', function () { startShots(el); });
+      el.querySelector('a').addEventListener('click', function (e) {
+        if (window.matchMedia('(hover: none)').matches) { e.preventDefault(); openSheet(el.dataset.id); }
+      });
+    });
+  }
+  document.getElementById('sheet').addEventListener('click', function (e) { if (e.target.id === 'sheet') { e.currentTarget.classList.remove('on'); clearInterval(timer); } });
   var en = {};
   document.querySelectorAll('[data-t]').forEach(function (el) { en[el.dataset.t] = el.innerHTML; });
   T.en = en;
@@ -148,6 +222,8 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
     document.documentElement.lang = l;
     document.querySelectorAll('[data-t]').forEach(function (el) { var v = T[l][el.dataset.t]; if (v) el.innerHTML = v; });
     document.querySelectorAll('.lang button').forEach(function (b) { b.classList.toggle('on', b.dataset.lang === l); });
+    L = l;
+    render();
     try { localStorage.setItem('novafox.lang', l); } catch (e) {}
   }
   var saved = null;
