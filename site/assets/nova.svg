@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 14 160 168">
+  <defs>
+    <clipPath id="head">
+      <path d="M100 58C140 58 172 80 170 112C168 136 130 160 100 174C70 160 32 136 30 112C28 80 60 58 100 58Z"/>
+    </clipPath>
+  </defs>
+  <path d="M52 92C44 60 46 34 58 22C72 30 88 50 96 70Z" fill="#F28C28"/>
+  <path d="M148 92C156 60 154 34 142 22C128 30 112 50 104 70Z" fill="#F28C28"/>
+  <path d="M60 80C56 60 58 44 63 36C72 44 80 56 86 68Z" fill="#20252B"/>
+  <path d="M140 80C144 60 142 44 137 36C128 44 120 56 114 68Z" fill="#20252B"/>
+  <circle cx="66" cy="50" r="1.6" fill="#F5F3EF"/>
+  <circle cx="71" cy="60" r="1" fill="#F5F3EF"/>
+  <circle cx="134" cy="52" r="1.2" fill="#F5F3EF"/>
+  <path d="M100 58C140 58 172 80 170 112C168 136 130 160 100 174C70 160 32 136 30 112C28 80 60 58 100 58Z" fill="#F28C28"/>
+  <path clip-path="url(#head)" d="M100 180C82 168 50 150 36 124C58 128 80 122 100 136C120 122 142 128 164 124C150 150 118 168 100 180Z" fill="#F5F3EF"/>
+  <path d="M100 74C101 81 103 83 110 84C103 85 101 87 100 94C99 87 97 85 90 84C97 83 99 81 100 74Z" fill="#F5F3EF"/>
+  <ellipse cx="76" cy="110" rx="7" ry="9" fill="#20252B"/>
+  <ellipse cx="124" cy="110" rx="7" ry="9" fill="#20252B"/>
+  <circle cx="78.5" cy="106" r="2.4" fill="#FFFFFF"/>
+  <circle cx="126.5" cy="106" r="2.4" fill="#FFFFFF"/>
+  <ellipse cx="100" cy="163" rx="9" ry="6.5" fill="#20252B"/>
+</svg>
