@@ -70,6 +70,8 @@ section h2 { font: 600 24px/1.3 var(--font-head); margin-bottom: 20px; }
 .tile.soon:hover > a { transform: none; box-shadow: none; border-color: var(--border); }
 .pop { position: absolute; z-index: 20; top: calc(100% + 10px); left: 0; width: 360px; max-width: calc(100vw - 32px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity 180ms var(--ease), transform 180ms var(--ease), visibility 180ms; }
 .tile.right .pop { left: auto; right: 0; }
+.tile.up .pop { top: auto; bottom: calc(100% + 10px); transform: translateY(6px); }
+.tile.up[data-id]::after { top: auto; bottom: 100%; }
 .tile:hover .pop, .tile:focus-within .pop { opacity: 1; visibility: visible; transform: none; }
 .tile[data-id]::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 12px; }
 .shots { position: relative; aspect-ratio: 16 / 8; background: var(--surface-2); overflow: hidden; }
@@ -204,7 +206,9 @@ footer .wrap { display: flex; align-items: center; justify-content: space-betwee
       '<div class="tile soon"><a><span class="plus">+</span><small>' + esc(SOON[L]) + '</small></a></div>';
     box.querySelectorAll('.tile[data-id]').forEach(function (el) {
       el.addEventListener('mouseenter', function () {
-        el.classList.toggle('right', el.getBoundingClientRect().left + 360 > window.innerWidth - 16);
+        var r = el.getBoundingClientRect();
+        el.classList.toggle('right', r.left + 360 > window.innerWidth - 16);
+        el.classList.toggle('up', r.bottom + 430 > window.innerHeight && r.top > 430);
         startShots(el);
       });
       el.addEventListener('mouseleave', function () { clearInterval(timer); });
